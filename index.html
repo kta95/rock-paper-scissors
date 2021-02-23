@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Janken</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+    // janken here
+
+    // get a random number
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+    const moves = ['Rock', 'Paper', 'Scissors'];
+
+    // return a move by computer
+    function computerPlay(selection) {
+      return selection[getRandomInt(selection.length)];
+    }
+
+    function playRound(playerSelection, computerSelection) {
+      // your code here!
+      player = playerSelection.toLowerCase();
+      com = computerSelection.toLowerCase();
+      if (player === com) {
+        return 'Draw!';
+      } else if ((player == 'paper' && com == 'rock') ||
+                 (player == 'scissors' && com == 'paper') ||
+                 (player == 'rock' && com == 'scissors')) {
+        player = player[0].toUpperCase() + player.substring(1);
+        com = com[0].toUpperCase() + com.substring(1);          
+        return 'You win! ' + player + ' beats '+ com +'!';
+      } else {
+        player = player[0].toUpperCase() + player.substring(1);
+        com = com[0].toUpperCase() + com.substring(1);
+        return 'You Lost! ' + com + ' beats '+ player +'!';
+      }
+    }
+
+    function game() {
+      let playerScore = 0;
+      let computerScore = 0;
+      let counter = 0;
+      while (counter < 5) {
+        let playerSelection = prompt('Enter a move ');
+        playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1);
+        const computerSelection = computerPlay(moves); 
+        console.log('player is ' + (playerSelection) + ' and computer is ' + computerSelection);
+        let result = playRound(playerSelection, computerSelection);
+        if (result.includes('win')) {
+          playerScore++;
+        } else if (result.includes('Lose')) {
+          computerScore++;
+        } else if (result.includes('Draw')){
+          continue;
+        }
+        counter++;
+      }
+      console.log('player ' + playerScore + ' and com ' + computerScore);
+      if (playerScore > computerScore) {
+        return 'You win!';
+      } else {
+        return 'You lost!';
+      }
+    }
+
+  console.log(game());
+  </script>
+</body>
+</html>
